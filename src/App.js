@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import SearchBar from './components/SearchBar/SearchBar';
+import ImageList from './components/ImageList/ImageList';
 
 class App extends React.Component {
   state = {
@@ -26,12 +27,13 @@ class App extends React.Component {
       .then(data => this.setState({ images: data.results }))
       .catch(err => console.log(err));
   }
+
   render() {
-    let images = this.state.results.map(result => <img src={`${result.urls.small}`} alt=''></img>)
     return (
       <div className="container">
         <SearchBar submitForm={this.searchSubmitHandler} />
-        {images}
+        <p>Found {this.state.images.length} images</p>
+        <ImageList images={this.state.images} />
       </div>
     );
   }
